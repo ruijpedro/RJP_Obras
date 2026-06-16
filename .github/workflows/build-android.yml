@@ -1,1 +1,63 @@
+name: Build Android APK
 
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Prepare Android platform
+        run: |
+          if [ ! -f android/gradlew ]; then
+            rm -rf android
+            npx cap add android
+          fi
+          npx cap sync android
+
+      - name: Apply RJP icon and label
+        run: |
+          cp public/android-icons/mipmap-mdpi/ic_launcher.png android/app/src/main/res/mipmap-mdpi/ic_launcher.png || true
+          cp public/android-icons/mipmap-mdpi/ic_launcher_round.png android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png || true
+          cp public/android-icons/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-hdpi/ic_launcher.png || true
+          cp public/android-icons/mipmap-hdpi/ic_launcher_round.png android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png || true
+          cp public/android-icons/mipmap-xhdpi/ic_launcher.png android/app/src/main/res/mipmap-xhdpi/ic_launcher.png || true
+          cp public/android-icons/mipmap-xhdpi/ic_launcher_round.png android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png || true
+          cp public/android-icons/mipmap-xxhdpi/ic_launcher.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png || true
+          cp public/android-icons/mipmap-xxhdpi/ic_launcher_round.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png || true
+          cp public/android-icons/mipmap-xxxhdpi/ic_launcher.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png || true
+          cp public/android-icons/mipmap-xxxhdpi/ic_launcher_round.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png || true
+
+      - name: Build debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RJP-Obras-debug-apk
+          path: android/app/build/outputs/apk/debug/*.apk
