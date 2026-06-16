@@ -1,14 +1,19 @@
 {
-  "name": "rjp-obras-v3-webapp",
-  "version": "3.0.1",
+  "name": "rjp-obras-apk-webapp",
+  "version": "3.0.2",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync android"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.0",
+    "@capacitor/cli": "^7.4.0",
+    "@capacitor/core": "^7.4.0",
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^6.0.7",
     "react": "^19.0.0",
