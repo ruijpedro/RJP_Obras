@@ -1,0 +1,5 @@
+plugins { id 'com.android.application' }
+
+android { namespace 'pt.rjp.obras'; compileSdk 35
+    defaultConfig { applicationId 'pt.rjp.obras'; minSdk 23; targetSdk 35; versionCode 3; versionName '3.1.0' }
+}

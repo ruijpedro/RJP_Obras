@@ -1,0 +1,6 @@
+{
+  "appId": "pt.rjp.obras",
+  "appName": "RJP Obras",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" }
+}
