@@ -1,63 +1,58 @@
-# RJP Obras V3
+# RJP Obras V3 WebApp
 
-Aplicação Android/WebApp para gestão de obras, controlo, acompanhamento, licenças, diário de obra, não conformidades, planeamento, rendimentos de mão-de-obra/materiais/equipamentos e relatórios PDF.
+WebApp React/Vite para gestão de obras.
 
-## Funcionalidades incluídas
+## Módulos
 
 - Dashboard executivo
-- Gestão de obras
-- Diário de obra com GPS e campos para fotografias/referências
-- Biblioteca inicial de rendimentos de edificação e obras públicas
-- Licenças e documentos
-- Não conformidades
-- Planeamento / Gantt simples
-- Exportação PDF
-- Backup JSON
-- Estrutura Google pronta em `src/services/google.js`
-- Preparado para WebApp e APK Android com Capacitor
+- Obras
+- Diário de Obra IA local
+- Biblioteca de Rendimentos: LNEC/Paz Branco + ECAACR + RJP
+- Custos e Autos
+- Licenças
+- Não Conformidades
+- Fotografias GPS
+- Planeamento preparado
+- Google Sheets/Drive via Apps Script
+- Relatórios PDF
 
-## Como correr no GitHub Codespaces
+## Como correr no Codespaces
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Como gerar WebApp
+## Como gerar a WebApp
 
 ```bash
 npm install
 npm run build
 ```
 
-A pasta publicada é `dist`.
+A pasta final para publicar é:
 
-## Como gerar APK no GitHub Actions
-
-1. Fazer upload dos ficheiros soltos para o repositório.
-2. Ir a **Actions**.
-3. Escolher **Build Android APK**.
-4. Clicar em **Run workflow**.
-5. Descarregar o artefacto `RJP-Obras-debug-apk`.
-
-## Configuração Google
-
-Editar:
-
-```text
-src/services/google.js
+```bash
+dist
 ```
 
-Preencher:
+## GitHub Pages / Netlify / Vercel
+
+O projeto já tem:
 
 ```js
-CLIENT_ID
-API_KEY
-APPS_SCRIPT_URL
+base: './'
 ```
 
-Enquanto o `APPS_SCRIPT_URL` não for configurado, o botão **Sincronizar** mostra aviso.
+no `vite.config.js`, por isso está preparado para publicação como WebApp.
 
-## Aviso
+## Google Apps Script
 
-Software de apoio técnico. Os dados, rendimentos, custos e relatórios devem ser sempre validados por técnico responsável antes de qualquer aplicação profissional.
+1. Abrir Google Apps Script.
+2. Criar novo projeto.
+3. Colar o conteúdo de `google-apps-script/Code.gs`.
+4. Implementar como Aplicação Web.
+5. Acesso: qualquer pessoa com o link.
+6. Copiar o URL terminado em `/exec`.
+7. Colar no separador Google da app.
+8. Clicar em Sincronizar Google.

@@ -1,31 +1,35 @@
-const KEY = 'rjp_obras_v3_state';
+import { rendimentoSeed, obraSeed } from '../data/seed'
 
-export const seedState = {
-  obras: [
-    { id: crypto.randomUUID(), codigo: 'RJP-001', nome: 'Reabilitação de edifício', cliente: 'Cliente Exemplo', local: 'Leiria', estado: 'Em curso', inicio: '2026-06-01', fim: '2026-09-30', previsto: 85000, real: 12500, licencas: 'Em validação' }
-  ],
-  diarios: [],
-  licencas: [],
-  nc: [],
-  tarefas: [
-    { id: crypto.randomUUID(), obra: 'RJP-001', tarefa: 'Preparação de estaleiro', inicio: '2026-06-01', fim: '2026-06-07', estado: 'Concluída', depende: '' },
-    { id: crypto.randomUUID(), obra: 'RJP-001', tarefa: 'Demolições e limpezas', inicio: '2026-06-08', fim: '2026-06-21', estado: 'Em curso', depende: 'Preparação de estaleiro' }
-  ]
-};
+export const STORE_KEY = 'rjp_obras_v3_webapp_data'
 
-export function loadState(){
-  try { return JSON.parse(localStorage.getItem(KEY)) || seedState; }
-  catch { return seedState; }
+export function defaultData(){
+  return {
+    obras: obraSeed,
+    diarios: [],
+    licencas: [],
+    ncs: [],
+    custos: [],
+    fotos: [],
+    rendimentos: rendimentoSeed,
+    settings: { appsScriptUrl:'' },
+    updatedAt: new Date().toISOString()
+  }
 }
 
-export function saveState(state){
-  localStorage.setItem(KEY, JSON.stringify(state));
+export function loadData(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY)
+    if(!raw) return defaultData()
+    return { ...defaultData(), ...JSON.parse(raw) }
+  }catch{
+    return defaultData()
+  }
 }
 
-export function exportJson(state){
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `RJP_Obras_backup_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
+export function saveData(data){
+  localStorage.setItem(STORE_KEY, JSON.stringify({ ...data, updatedAt:new Date().toISOString() }))
+}
+
+export function uid(prefix='rjp'){
+  return `${prefix}_${Math.random().toString(36).slice(2,8)}_${Date.now().toString(36).slice(-5)}`
 }
