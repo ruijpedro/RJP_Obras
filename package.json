@@ -1,6 +1,6 @@
 {
-  "name": "rjp-obras-melhorada",
-  "version": "3.1.0",
+  "name": "rjp-obras-v4",
+  "version": "4.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,12 +14,13 @@
     "@capacitor/android": "^7.4.0",
     "@capacitor/cli": "^7.4.0",
     "@capacitor/core": "^7.4.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "lucide-react": "^0.468.0",
     "jspdf": "^2.5.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.7"
+  }
 }
