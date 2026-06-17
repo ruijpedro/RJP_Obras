@@ -1,1 +1,36 @@
+name: Build WebApp
 
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Reset npm
+        run: |
+          npm install -g npm@10.9.2
+          npm cache clean --force
+          rm -rf node_modules package-lock.json
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund --legacy-peer-deps --no-package-lock
+
+      - name: Build WebApp
+        run: npx vite build
+
+      - name: Upload WebApp
+        uses: actions/upload-artifact@v4
+        with:
+          name: RJP-Obras-WebApp-dist
+          path: dist
