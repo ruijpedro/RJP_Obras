@@ -11,29 +11,31 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
   build-web:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install Dependencies
+      - name: Install pnpm
+        run: npm install -g pnpm@9.15.9
+
+      - name: Clean install
         run: |
-          npm install --legacy-peer-deps
+          rm -rf node_modules package-lock.json pnpm-lock.yaml
+          pnpm install --no-frozen-lockfile
 
       - name: Build WebApp
-        run: |
-          npx vite build
+        run: pnpm exec vite build
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
@@ -41,12 +43,11 @@ jobs:
           path: ./dist
 
   deploy:
+    runs-on: ubuntu-latest
+    needs: build-web
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    needs: build-web
 
     steps:
       - name: Deploy to GitHub Pages
