@@ -1,6 +1,6 @@
 {
-  "name": "rjp-obras-apk-webapp",
-  "version": "3.0.2",
+  "name": "rjp-obras-melhorada",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -19,8 +19,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "lucide-react": "^0.468.0",
-    "jspdf": "^2.5.2",
-    "html2canvas": "^1.4.1"
+    "jspdf": "^2.5.2"
   },
   "devDependencies": {}
 }
