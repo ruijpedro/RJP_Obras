@@ -1,25 +1,46 @@
-# RJP Obras V3.1 — APK + WebApp
+# RJP Obras V4.1 — APK + WebApp
 
-Versão melhorada com:
-- Dashboard com KPI, atrasos, licenças e NC
-- Pesquisa global
-- Backup JSON e importação JSON
+Versão com:
+
+- Dashboard executivo
 - Obras
 - Diário IA
-- Biblioteca de Rendimentos ECAACR / LNEC / RJP
-- Custos e autos com cálculo automático
+- Planeamento + Gantt simples
+- Autos profissionais
+- Curva S
+- Rendimentos ECAACR / LNEC / RJP
+- Modo Ferrovia IP
 - Licenças
 - Não conformidades
 - Fotos GPS
 - Google Sheets/Drive por Apps Script
-- PDF geral
-- Workflows separados para APK e WebApp
+- PDF executivo
+- Backup/importação JSON
+- Workflow para APK Android
+- Workflow para WebApp com GitHub Pages
 
-## Gerar APK
-Actions > Build Android APK > Run workflow
+## APK
 
-## Gerar WebApp
-Actions > Build WebApp > Run workflow
+GitHub → Actions → Build Android APK → Run workflow
 
-## Importante
-Usa o ZIP num repositório limpo ou apaga ficheiros antigos antes de carregar.
+Artifact:
+
+`RJP-Obras-V41-debug-apk`
+
+## WebApp pública
+
+GitHub → Settings → Pages → Source: GitHub Actions
+
+Depois:
+
+GitHub → Actions → Build and Deploy WebApp → Run workflow
+
+O link aparece no passo `deploy`.
+
+## Google Apps Script
+
+Usa o ficheiro:
+
+`google-apps-script/Code.gs`
+
+Implementar como Web App e colar o URL `/exec` no separador Google da app.
